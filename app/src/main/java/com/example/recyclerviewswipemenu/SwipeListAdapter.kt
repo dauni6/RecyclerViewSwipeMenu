@@ -15,10 +15,6 @@ class SwipeListAdapter : RecyclerView.Adapter<SwipeListAdapter.SwipeViewHolder>(
 
     override fun getItemCount(): Int = items.size
 
-    override fun getItemViewType(position: Int): Int {
-        return super.getItemViewType(position)
-    }
-//    SwipeVieHolder(LayoutInflater.from(parent.context).inflate(R.layout.item_swipe, parent, false))
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): SwipeViewHolder =
         SwipeViewHolder(ItemSwipeBinding.inflate(LayoutInflater.from(parent.context), parent, false))
 

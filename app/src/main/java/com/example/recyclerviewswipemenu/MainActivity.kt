@@ -21,16 +21,24 @@ class MainActivity : BaseActivity() {
         super.onCreate(savedInstanceState)
         binding = DataBindingUtil.setContentView(this, R.layout.activity_main)
 
-        binding.recyclerView.apply {
-            layoutManager = LinearLayoutManager(getActivityBaseContext())
-            adapter = SwipeListAdapter()
-            addItemDecoration(ItemDecoration())
-        }
+        val swipeAdapter = SwipeListAdapter()
 
-        val swipeHelperCallback = SwipeHelperCallback()
+        val swipeHelperCallback = SwipeHelperCallback().apply {
+            setClamp(200f)
+        }
         val itemTouchHelper = ItemTouchHelper(swipeHelperCallback)
         itemTouchHelper.attachToRecyclerView(binding.recyclerView)
 
+        binding.recyclerView.apply {
+            layoutManager = LinearLayoutManager(getActivityBaseContext())
+            adapter = swipeAdapter
+            addItemDecoration(ItemDecoration())
+
+            setOnTouchListener { _, _ ->
+                swipeHelperCallback.removePreviousClamp(this)
+                false
+            }
+        }
     }
 
 }
